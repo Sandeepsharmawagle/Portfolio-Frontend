@@ -9,3 +9,5 @@ NETLIFY_DEPLOYMENT.md
 DEPLOYMENT_GUIDE.md
 DEPLOYMENT_STATUS.md
 netlify.toml
+.env.local
+.env
