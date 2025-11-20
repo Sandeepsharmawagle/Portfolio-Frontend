@@ -15,13 +15,18 @@ import AdminLogin from './components/AdminLogin';
 import AdminDashboard from './components/AdminDashboard';
 
 function App() {
+  // Access the environment variable for your backend API
+  const apiUrl = import.meta.env.VITE_API_URL;
+  // Log for verification
+  console.log('Backend API URL:', apiUrl);
+
   const [darkMode, setDarkMode] = useState(true);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     // Simulate loading
     setTimeout(() => setLoading(false), 2000);
-    
+
     // Check for saved theme preference
     const savedTheme = localStorage.getItem('theme');
     if (savedTheme) {
@@ -50,26 +55,31 @@ function App() {
 
   return (
     <BrowserRouter>
-      <div className={`min-h-screen transition-colors duration-300 ${
-        darkMode ? 'bg-primary text-white' : 'bg-white text-gray-900'
-      }`}>
+      <div
+        className={`min-h-screen transition-colors duration-300 ${
+          darkMode ? 'bg-primary text-white' : 'bg-white text-gray-900'
+        }`}
+      >
         <Routes>
           {/* Main Portfolio Routes */}
-          <Route path="/" element={
-            <>
-              <Navbar darkMode={darkMode} toggleDarkMode={toggleDarkMode} />
-              <Hero darkMode={darkMode} />
-              <About darkMode={darkMode} />
-              <Skills darkMode={darkMode} />
-              <Projects darkMode={darkMode} />
-              <Experience darkMode={darkMode} />
-              <Certifications darkMode={darkMode} />
-              <Contact darkMode={darkMode} />
-              <Footer darkMode={darkMode} />
-              <BackToTop />
-            </>
-          } />
-          
+          <Route
+            path="/"
+            element={
+              <>
+                <Navbar darkMode={darkMode} toggleDarkMode={toggleDarkMode} />
+                <Hero darkMode={darkMode} />
+                <About darkMode={darkMode} />
+                <Skills darkMode={darkMode} />
+                <Projects darkMode={darkMode} />
+                <Experience darkMode={darkMode} />
+                <Certifications darkMode={darkMode} />
+                <Contact darkMode={darkMode} />
+                <Footer darkMode={darkMode} />
+                <BackToTop />
+              </>
+            }
+          />
+
           {/* Admin Routes */}
           <Route path="/admin/login" element={<AdminLogin darkMode={darkMode} />} />
           <Route path="/admin/dashboard" element={<AdminDashboard darkMode={darkMode} />} />
