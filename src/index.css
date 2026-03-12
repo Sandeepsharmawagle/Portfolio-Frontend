@@ -2,28 +2,17 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Custom scrollbar */
-::-webkit-scrollbar {
-  width: 10px;
-}
-
-::-webkit-scrollbar-track {
-  background: #1E293B;
-}
-
+/* ── Custom scrollbar ───────────────────────────────────────── */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: #020617; }
 ::-webkit-scrollbar-thumb {
-  background: #06B6D4;
-  border-radius: 5px;
+  background: linear-gradient(180deg, #06B6D4 0%, #818CF8 100%);
+  border-radius: 3px;
 }
+::-webkit-scrollbar-thumb:hover { background: #22D3EE; }
 
-::-webkit-scrollbar-thumb:hover {
-  background: #0891B2;
-}
-
-/* Smooth scroll behavior */
-html {
-  scroll-behavior: smooth;
-}
+/* ── Smooth scroll ──────────────────────────────────────────── */
+html { scroll-behavior: smooth; }
 
 body {
   margin: 0;
@@ -32,44 +21,64 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-/* Glassmorphism utility */
+/* ── Glassmorphism ──────────────────────────────────────────── */
 .glass-effect {
   background: rgba(255, 255, 255, 0.05);
-  backdrop-filter: blur(10px);
+  backdrop-filter: blur(12px);
   border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .glass-effect-dark {
-  background: rgba(15, 23, 42, 0.7);
-  backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 255, 255, 0.05);
+  background: rgba(15, 23, 42, 0.65);
+  backdrop-filter: blur(14px);
+  border: 1px solid rgba(255, 255, 255, 0.06);
 }
 
-/* Selection color */
-::selection {
-  background: #06B6D4;
-  color: white;
-}
+/* ── Selection ──────────────────────────────────────────────── */
+::selection { background: #06B6D4; color: white; }
 
-/* Gradient text */
+/* ── Gradient text ──────────────────────────────────────────── */
 .gradient-text {
-  background: linear-gradient(135deg, #06B6D4 0%, #22D3EE 100%);
+  background: linear-gradient(135deg, #06B6D4 0%, #22D3EE 50%, #818CF8 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
 }
 
-/* Custom animations */
+/* ── Animated gradient bg ───────────────────────────────────── */
 @keyframes gradient-shift {
-  0%, 100% {
-    background-position: 0% 50%;
-  }
-  50% {
-    background-position: 100% 50%;
-  }
+  0%, 100% { background-position: 0% 50%; }
+  50%       { background-position: 100% 50%; }
 }
-
 .animate-gradient {
   background-size: 200% 200%;
   animation: gradient-shift 8s ease infinite;
+}
+
+/* ── Floating glow blob animation ───────────────────────────── */
+@keyframes float-glow {
+  0%, 100% { transform: translateY(0) scale(1); opacity: 0.3; }
+  50%       { transform: translateY(-24px) scale(1.08); opacity: 0.55; }
+}
+.float-glow { animation: float-glow 6s ease-in-out infinite; }
+
+/* ── Glowing border keyframe ────────────────────────────────── */
+@keyframes border-glow {
+  0%, 100% { box-shadow: 0 0 8px rgba(6,182,212,0.4); }
+  50%       { box-shadow: 0 0 24px rgba(6,182,212,0.8), 0 0 60px rgba(6,182,212,0.2); }
+}
+.border-glow { animation: border-glow 3s ease-in-out infinite; }
+
+/* ── Subtle text shimmer ────────────────────────────────────── */
+@keyframes shimmer {
+  0%   { background-position: -200% center; }
+  100% { background-position: 200% center; }
+}
+.shimmer-text {
+  background: linear-gradient(90deg, #06B6D4, #22D3EE, #818CF8, #22D3EE, #06B6D4);
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: shimmer 4s linear infinite;
 }

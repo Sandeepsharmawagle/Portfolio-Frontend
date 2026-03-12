@@ -1,10 +1,21 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { FiMenu, FiX, FiSun, FiMoon } from 'react-icons/fi';
+import { gsap } from 'gsap';
 
 const Navbar = ({ darkMode, toggleDarkMode }) => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const navRef = useRef(null);
+
+  // GSAP entrance for navbar items
+  useEffect(() => {
+    const ctx = gsap.context(() => {
+      gsap.from('.nav-logo', { opacity: 0, x: -30, duration: 0.7, ease: 'power3.out', delay: 0.5 });
+      gsap.from('.nav-link', { opacity: 0, y: -20, stagger: 0.09, duration: 0.55, ease: 'power2.out', delay: 0.7 });
+    }, navRef);
+    return () => ctx.revert();
+  }, []);
 
   const navLinks = [
     { name: 'Home', href: '#home' },
@@ -42,6 +53,7 @@ const Navbar = ({ darkMode, toggleDarkMode }) => {
 
   return (
     <motion.nav
+      ref={navRef}
       initial={{ y: -100 }}
       animate={{ y: 0 }}
       className={`fixed top-0 left-0 right-0 z-40 transition-all duration-300 ${
@@ -58,7 +70,7 @@ const Navbar = ({ darkMode, toggleDarkMode }) => {
           <motion.a
             href="#home"
             onClick={(e) => handleNavClick(e, '#home')}
-            className="text-2xl font-display font-bold gradient-text"
+            className="nav-logo text-2xl font-display font-bold gradient-text"
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
           >
@@ -72,12 +84,14 @@ const Navbar = ({ darkMode, toggleDarkMode }) => {
                 key={link.name}
                 href={link.href}
                 onClick={(e) => handleNavClick(e, link.href)}
-                className={`text-sm font-medium transition-colors hover:text-accent ${
+                className={`nav-link text-sm font-medium transition-colors hover:text-accent relative group ${
                   darkMode ? 'text-gray-300' : 'text-gray-700'
                 }`}
                 whileHover={{ y: -2 }}
               >
                 {link.name}
+                {/* Underline hover effect */}
+                <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-accent transition-all duration-300 group-hover:w-full rounded-full" />
               </motion.a>
             ))}
             
